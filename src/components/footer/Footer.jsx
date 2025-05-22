@@ -4,7 +4,10 @@ import { logo } from '../../assets/index'
 
 const Footer = () => {
   return (
-    <div className='w-full py-20 h-auto border-b-black grid grid-cols-4 gap-8 '>
+    <div className='w-full bg-[#5483B3] py-20 h-auto border-b-black '>
+       <div className='w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-4 gap-8 '>
+
+
         <div className='w-full h-full flex flex-col gap-8'>
             <img className='w-32' src={logo} alt="logo" />
             <div>
@@ -43,18 +46,18 @@ const Footer = () => {
                 <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Authentication<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
               </li> 
-              <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>System status<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
+              {/* <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>System status<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
-              </li> 
+              </li>  */}
               <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Terms of Service<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
               </li> 
               <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Pricing<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
               </li> 
-              <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Over Right<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
+              {/* <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Over Right<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
-              </li>               
+              </li>                */}
             </ul>
         </div>
         <div className='w-full h-full'>
@@ -62,12 +65,12 @@ const Footer = () => {
                 developers  
             </h3>
             <ul className='flex flex-col gap-4 font-titleFont font-medium py-4 overflow-hidden'>
-                <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Documenetation<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
+                <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Documentation<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
               </li> 
-              <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Authentication<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
+              {/* <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>Authentication<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
-              </li> 
+              </li>  */}
               <li><span className='w-full text-lg relative hover:text-designColor duration-300 cursor-pointer group'>API Reference<span className='absolute h-[1px] w-full inline-flex bg-designColor -bottom-1 -translate-x-[100%] left-0 group-hover:translate-x-0  transition-transform duration-300'></span> 
                 </span>
               </li> 
@@ -80,6 +83,7 @@ const Footer = () => {
             </ul>
         </div>
         <div className='w-full h-full'></div>
+       </div>
     </div>
   )
 }

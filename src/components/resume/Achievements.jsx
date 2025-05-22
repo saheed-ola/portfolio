@@ -12,7 +12,7 @@ const Achievements = () => {
          
      <div>
         <div className='py-12 font-titleFont flex flex-col gap-4'>
-            <p className='text-sm text-designColor tracking-[4px]'>1998 - 2010</p>
+            {/* <p className='text-sm text-designColor tracking-[4px]'>1998 - 2010</p> */}
             <h2 className='text-4xl font-bold'>Company Experience</h2>
         </div>
         <div className='mt-14 w-full h-[1000px] border-1-[6px] border-black border-opacity-30 flex flex-col gap-10'>

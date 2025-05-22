@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Title from '../layouts/Title'
-import ContactLeft from './ContactLeft'
+import Title from '../layouts/Title';
+import ContactLeft from './ContactLeft';
 import { p } from 'framer-motion/client';
  
 // FORM VALIDATION
@@ -50,17 +50,20 @@ const  emailValidation = () => {
       
 
   return (
-    <section id = "contacts" className=' w-full py-20 border-b-[1px] border-b-black'>
+    <section id = "contacts" className=' w-full bg-[#3c6894] py-20 border-b-[1px] border-b-black'>
+       <div className='w-[90%] mx-auto'>
+
+
         <div className='flex justify-center items-center text-center'>
             <Title
             title = "CONTACT" 
-            des = "CONTACT WITH ME"/>
+            des = "CONNECT WITH ME"/>
         </div>
             <div className='w-full'>
-                <div className='w-full h-auto flex justify-between'>
+                <div className='w-full h-auto flex flex-col lgl:flex-row justify-between'>
                     <ContactLeft/>
-                    <div className = 'w-[60%] h-full py-10 bg-white p-8 shadow-shadowOne flex flex-col gap-8 rounded-lg justify-center'>
-                        <form className='w-full flex flex-col gap-6 py-5 '>
+                    <div className = 'w-full lgl:w-[60%] h-full py-10 bg-white p-4 lgl:p-8 shadow-shadowOne flex flex-col gap-8 rounded-lg justify-center'>
+                        <form className='w-full flex flex-col gap-4 lgl:gap-6 py-2 lgl:py-5 '>
                             {
                                 errMsg && <p className='py-3 bg-black shadow-red-400 text-center text-red-500 text-base tracking-wide animate-bounce'>{errMsg}</p>
                             }
@@ -68,12 +71,12 @@ const  emailValidation = () => {
                             successMsg && <p className='py-3 bg-green-700 shadow-red-400 text-center text-white text-base tracking-wide animate-bounce'>{successMsg}</p>
                             }
 
-                            <div className='w-full flex gap-10 '>
-                                <div className='w-1/2 flex flex-col gap-4'>
+                            <div className='w-full flex flex-col lgl:flex-row gap-10 '>
+                                <div className='w-full lgl:w-1/2 flex flex-col gap-4'>
                                 <p className='text-sm text-gray-600 uppercase tracking-wide'>Name</p>
                                 <input onChange={(e) => setUserName(e.target.value)} value={userName} className= {`${errMsg === "Your Username is required" && "outline-designColor"} contactInput`} type="text" />
                                 </div>
-                                <div className='w-1/2 flex flex-col gap-4'>
+                                <div className='w-full lgl:w-1/2 flex flex-col gap-4'>
                                 <p className='text-sm text-gray-600 uppercase tracking-wide'>Phone number</p>
                                 <input  onChange={(e) => setPhoneNumber(e.target.value)} value={phoneNumber}  className= {`${errMsg === "Your phone number is required" && "outline-designColor"} contactInput`}  type="text" />
                                 </div>
@@ -103,6 +106,7 @@ const  emailValidation = () => {
                     </div>
                 </div>
             </div>
+       </div>
     </section>
   );
 }

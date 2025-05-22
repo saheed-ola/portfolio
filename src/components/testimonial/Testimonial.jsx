@@ -1,246 +1,105 @@
-import React,{useState} from 'react'
-import Slider from "react-slick";
-import { RiStarFill } from 'react-icons/ri';
-import {HiArrowRight,HiArrowLeft} from 'react-icons/hi'
-import Title from '../layouts/Title'
-import { testimonialOne, testimonialTwo, quote } from '../../assets';
-
-function SampleNextArrow(props) {
-    const {onClick} = props;
-    return (
-      <div
-        className= 'w-14 h-12 bg-black hover:bg-blue duration-300 rounded-md text-gray-400 flex justify-center items-center absolute top-0 right-20 shadow-shadowOne cursor-pointer z-10'
-       
-        onClick={onClick}
-      ><HiArrowRight/></div>
-    );
-  }
-
-  function SamplePrevArrow(props) {
-    const {onClick} = props;
-    return (
-      <div
-        className= 'w-14 h-12 bg-black hover:bg-blue duration-300 rounded-md text-gray-400 flex justify-center items-center absolute top-0 right-[150px] shadow-shadowOne cursor-pointer z-10'
-       
-        onClick={onClick}
-      ><HiArrowLeft/></div>
-    );
-  }
+import { reviews } from "../../App";
+import { RiStarFill } from "react-icons/ri";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useEffect, useState } from "react";
+import Title from "../layouts/Title";
 
 const Testimonial = () => {
-    const {dotActive, setdotActive} = useState(0);
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        nextArrow: <SampleNextArrow/>,
-        prevArrow: <SamplePrevArrow/>,
-        // beforeChange: (previous, next) => {
-        //     setdotActive(next);
-        // },
-        appendDots: dots => (
-            <div
-              style={{
-                borderRadius: "10px", 
-                padding: "10px"
-              }}
-            >
-              <ul style={{ 
-                    display:'flex',
-                    gap: '15px',
-                    justifyContent: 'center',
-                    marginTop: '20px'
-              }}>
-                {""} {dots}
-                  </ul>
-            </div>
-          ),
-          customPaging: (i) => (
-            <div
-              style={
-                i===dotActive ? 
-                {
-                    width: "12px",
-                    height: "12px",
-                    color: "blue",
-                    background: "black",
-                    borderRadius: "58%",
-                    cursor: "pointer",
-                }:
-                {
-                    width: "12px",
-                    height: "12px",
-                    color: "blue",
-                    background: "white",
-                    borderRadius: "58%",
-                    cursor: "pointer",
-                }
-              }
-            >
-             
-            </div>
-          ),
-    };
+  const [api, setApi] = useState();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
+
   return (
-    <section id = "testimonial" className=' w-full py-20 border-b-[1px] border-b-black'>
-        <div className='flex justify-center items-center text-center'>
-            <Title
-            title = "WHAT CLIENTS SAY" 
-            des = "Testimonial"/>
+    <>
+      <section
+        id="testimonial"
+        className=" w-full overflow-x-hidden bg-[#5483B3] px-4 py-20 border-b-[1px] border-b-black"
+      >
+        <div className="flex justify-center items-center text-center" >
+          <Title title="WHAT CLIENTS SAY" des="Testimonial" />
         </div>
-        <div className='max-w-6xl mx-auto'>
-            <Slider {...settings}>
-                <div className='w-full'>
-                    <div className='w-full h-[500px] flex justify-between'>
-                        <div className='w-[35%] h-full bg-white shadow-shadowOne p-8 rounded-lg flex flex-col gap-8 justify-center'>
-                            <img 
-                            className='h-72 rounded-3xl object-cover'
-                            src={testimonialOne}
-                            alt="testimonialOne"
-                            />
-                            <div>
-                                <p>Oluwole Zaccheous</p>
-                                <h3 className='text-2xl font-bold'>Jone Duone Joe</h3>
-                                <p className='text-base tracking-wide text-gray-500'>IOT Software developer</p>
-                            </div>
-                        </div>
-                        <div className='w-[60%] h-full flex flex-col justify-between'>
-                            <img className='w-[20%]' src={quote} alt="" />
-                            <div className='w-full h-[70%] py-10 bg-white rounded-lg shadow-shadowOne p-8 flex flex-col justify-center gap-8'>
-                                <div className='flex justify-between items-center py-6 border-b-2 border-b-gray-900'>
-                                    <div>
-                                        <h3 className='text-2xl font-medium tracking-wide'>Travel Mobile App Design
-                                        </h3>
-                                        <p className='text-base text-gray-400 mt-3'>Via Upwork - Mar 4, 2015-Aug 30, 2021 test</p>
-                                    </div>
-                                    <div className='text-yellow-500 flex gap-1'>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore eveniet consequuntur excepturi magnam explicabo dolor rem non omnis, amet tempora in mollitia praesentium aliquid, natus veritatis incidunt culpa, aut dolorum!</p>
-                            </div>
-                        </div>
+        <Carousel
+          plugins={[
+            Autoplay({
+              delay: 3000,
+            }),
+          ]}
+          setApi={setApi}
+          className="w-full "
+        >
+          <CarouselContent>
+            {reviews.map((r, index) => (
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div
+                  className={`${
+                    current === index && "drop-shadow-md shadow-amber-200"
+                  } bg-white rounded-lg shadow-xl p-4 lgl:p-8 flex flex-col justify-center items-center relative gap-4 lgl:gap-8`}
+                >
+                  <div className="w-full flex items-center justify-center">
+                    <img
+                      src={r.picture}
+                      alt=""
+                      className="w-[200px] h-[200px] border-[2px] border-yellow-500 rounded-full bg-cover bg-center bg-no-repeat"
+                    />
+                  </div>
+                  <div className="w-full flex flex-col justify-between items-center py-6 border-b-2 border-b-gray-900">
+                    <h3 className="text-xl text-black lgl:text-2xl font-medium tracking-wide">
+                      {r.oruko}
+                    </h3>
+                    <p className="text-base text-gray-400 mt-3 mx-auto ">
+                      {r.positon}
+                    </p>
+                    <div className="text-yellow-500 flex gap-1">
+                      <RiStarFill />
+                      <RiStarFill />
+                      <RiStarFill />
+                      <RiStarFill />
+                      <RiStarFill />
                     </div>
+                  </div>
+                  <p className="text-black">{r.statement}</p>
                 </div>
-                <div className='w-full'>
-                    <div className='w-full h-[500px] flex justify-between'>
-                        <div className='w-[35%] h-full bg-white shadow-shadowOne p-8 rounded-lg flex flex-col gap-8 justify-center'>
-                            <img 
-                            className='h-72 rounded-3xl object-cover'
-                            src={testimonialTwo}
-                            alt="testimonialOne"
-                            />
-                            <div>
-                                <p>Bello Ridwan</p>
-                                <h3 className='text-2xl font-bold'>Jone Duone Joe</h3>
-                                <p className='text-base tracking-wide text-gray-500'>IOT Software developer</p>
-                            </div>
-                        </div>
-                        <div className='w-[60%] h-full flex flex-col justify-between'>
-                            <img className='w-[20%]' src={quote} alt="" />
-                            <div className='w-full h-[70%] py-10 bg-white rounded-lg shadow-shadowOne p-8 flex flex-col justify-center gap-8'>
-                                <div className='flex justify-between items-center py-6 border-b-2 border-b-gray-900'>
-                                    <div>
-                                        <h3 className='text-2xl font-medium tracking-wide'>Travel Mobile App Design
-                                        </h3>
-                                        <p className='text-base text-gray-400 mt-3'>Via Upwork - Mar 4, 2015-Aug 30, 2021 test</p>
-                                    </div>
-                                    <div className='text-yellow-500 flex gap-1'>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore eveniet consequuntur excepturi magnam explicabo dolor rem non omnis, amet tempora in mollitia praesentium aliquid, natus veritatis incidunt culpa, aut dolorum!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='w-full'>
-                    <div className='w-full h-[500px] flex justify-between'>
-                        <div className='w-[35%] h-full bg-white shadow-shadowOne p-8 rounded-lg flex flex-col gap-8 justify-center'>
-                            <img 
-                            className='h-72 rounded-3xl object-cover'
-                            src={testimonialTwo}
-                            alt="testimonialOne"
-                            />
-                            <div>
-                                <p>Oluwole Zaccheous</p>
-                                <h3 className='text-2xl font-bold'>Jone  Joe</h3>
-                                <p className='text-base tracking-wide text-gray-500'>IOT Software developer</p>
-                            </div>
-                        </div>
-                        <div className='w-[60%] h-full flex flex-col justify-between'>
-                            <img className='w-[20%]' src={quote} alt="" />
-                            <div className='w-full h-[70%] py-10 bg-white rounded-lg shadow-shadowOne p-8 flex flex-col justify-center gap-8'>
-                                <div className='flex justify-between items-center py-6 border-b-2 border-b-gray-900'>
-                                    <div>
-                                        <h3 className='text-2xl font-medium tracking-wide'>Travel Mobile App Design
-                                        </h3>
-                                        <p className='text-base text-gray-400 mt-3'>Via Upwork - Mar 4, 2015-Aug 30, 2021 test</p>
-                                    </div>
-                                    <div className='text-yellow-500 flex gap-1'>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                        <RiStarFill/>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore eveniet consequuntur excepturi magnam explicabo dolor rem non omnis, amet tempora in mollitia praesentium aliquid, natus veritatis incidunt culpa, aut dolorum!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            </Slider>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="hidden lg:block">
+            <CarouselPrevious />
+            <CarouselNext />
+          </div>
+        </Carousel>
+
+        <div className="flex gap-2 w-full items-center justify-center pt-10">
+          {Array.from({ length: count }).map((_, index) => (
+            <div
+              key={index}
+              className={`${
+                current === index + 1 ? "bg-slate-300" : "bg-slate-500"
+              } bg-slate-500 transition-all duration-1000 ease-in-out w-2 h-2 rounded-full`}
+            />
+          ))}
         </div>
-    </section>
-  )
-}
-
-export default Testimonial
-
-
-{/* <div className='w-full h-[500px] flex justify-between'>
-<div className='w-[35%] h-full bg-white shadow-shadowOne p-8 rounded-lg flex flex-col gap-8 justify-center'>
-    <img 
-    className='h-72 rounded-3xl object-cover'
-    src={testimonialTwo}
-    alt="testimonialOne"
-    />
-    <div>
-        <p>Oluwole Zaccheous</p>
-        <h3 className='text-2xl font-bold'>Jone Duone Joe</h3>
-        <p className='text-base tracking-wide text-gray-500'>IOT Software developer</p>
-    </div>
-</div>
-<div className='w-[60%] h-full border flex flex-col justify-between'>
-    <img className='w-[20%]' src={quote} alt="" />
-    <div className='w-full h-[70%] py-10 bg-white rounded-lg shadow-shadowOne p-8 flex flex-col justify-center gap-8'>
-        <div className='flex justify-between items-center py-6 border-b-2 border-b-gray-900'>
-            <div>
-                <h3 className='text-2xl font-medium tracking-wide'>Travel Mobile App Design
-                </h3>
-                <p className='text-base text-gray-400 mt-3'>Via Upwork - Mar 4, 2015-Aug 30, 2021 test</p>
-            </div>
-            <div className='text-yellow-500 flex gap-1'>
-                <RiStarFill/>
-                <RiStarFill/>
-                <RiStarFill/>
-                <RiStarFill/>
-                <RiStarFill/>
-            </div>
-        </div>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore eveniet consequuntur excepturi magnam explicabo dolor rem non omnis, amet tempora in mollitia praesentium aliquid, natus veritatis incidunt culpa, aut dolorum!</p>
-    </div>
-</div>
-</div> */}
+      </section>
+    </>
+  );
+};
+export default Testimonial;
